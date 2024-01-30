@@ -1,11 +1,17 @@
 import re
 import pandas as pd
 from datetime import datetime
+import os
 
 def extract_sha256_and_ips(input_file_path, output_file_path):
     # Define the regular expression patterns for SHA256 and IP addresses
     sha256_pattern = re.compile(r'\b[A-Fa-f0-9]{64}\b')
     ip_pattern = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
+
+    # Check if the output file exists
+    if os.path.exists(output_file_path):
+        # If it exists, remove the file or clear its contents
+        os.remove(output_file_path)  # or use open(output_file_path, 'w').close()
 
     # Open the input file for reading
     with open(input_file_path, 'r') as input_file:
