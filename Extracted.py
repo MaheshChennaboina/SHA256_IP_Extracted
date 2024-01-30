@@ -27,7 +27,7 @@ def extract_sha256_and_ips(input_file_path, output_file_path):
         categories = ['SHA256'] * len(sha256_values) + ['IP'] * len(ip_values)
 
         # Create a DataFrame using pandas
-        df = pd.DataFrame({'Date': [datetime.now()] * len(all_values),
+        df = pd.DataFrame({'Date': [datetime.now().date()] * len(all_values),
                            'Values': all_values,
                            'Category': categories})
 
