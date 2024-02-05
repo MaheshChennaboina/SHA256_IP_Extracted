@@ -1,0 +1,84 @@
+Hi All,
+
+Good day!
+
+PRIME CYBER THREAT INTELLIGENCE – New RE#TURGENCE Attack Campaign
+
+Please find the latest IOCs observed for New RE#TURGENCE Attack Campaign. Threat actors are actively targeting MSSQL servers to deliver MIMIC ransomware.
+
+Indicators Of Compromise:
+IPs:
+45.148.121.87
+88.214.26.3
+
+SHA256:
+d6cd0080d401be8a91a55b006795701680073df8cd7a0b5bc54e314370549dc4
+
+Actions and Recommendations:
+1.TRO Endpoint Team, kindly add the SHA256 hash to the TIE as early as possible on a proactive basis – 4810740.
+2.TRO Email Security Team, kindly add the SHA256 hash to the Mimecast block module as early as possible on a proactive basis – 4810741.
+3.TRO SOC Team, kindly add the IPs and SHA256 hash to the SIEM watchlist/blacklist as early as possible on a proactive basis – 4810742.
+4. TRO NetSec Team, Kindly block the IPs as early as possible on a proactive basis – 4810743.
+
+Thank you.
+
+Best Regards,
+Prabhu Teja Sabhavat | Associate Cybersecurity Analyst
+psabhavat@primehealthcare.com
+
+From: Prabhu Teja Sabhavat (PMT) <psabhavat@primehealthcare.com> 
+Sent: Tuesday, January 9, 2024 9:21 PM
+To: TRO Endpoint Security Team <PHS-DL-TROEndpointSecurity@primehealthcare.com>; TRO Email Security Team <PHS-DL-AM-EmailSecurity_Team@primehealthcare.com>; TRO SOC and IR Team <PrimeSOC@primehealthcare.com>
+Cc: TRO Threat Intelligence Team <PHS-DL-ThreatIntelligence@primehealthcare.com>
+Subject: PRIME CYBER THREAT INTELLIGENCE – New RE#TURGENCE Attack Campaign
+
+Hi All, 
+
+Good Day! 
+
+PRIME CYBER THREAT INTELLIGENCE – New RE#TURGENCE Attack Campaign
+
+Title	New RE#TURGENCE Attack Campaign
+Category	Trojan/Malware/Ransomware/ Worm - CTI
+SD Ticket	EndPoint: 4804714
+EmailSec: 4804715
+SOC: 4804716
+Subject	Financially motivated Turkish threat actors are actively targeting MSSQL servers to deliver MIMIC ransomware payloads.
+Objective	The ongoing threat campaign, RE#TURGENCE which involves the targeting and exploitation of MSSQL database servers to gain initial access. The threat actors appear to be targeting US, EU and LATAM countries and are financially motivated.
+Technical Details	The initial access portion of the campaign is like that of DB#JAMMER campaign which involved direct MSSQL access through brute forcing administrative passwords. Threat actors have been targeting exposed database servers heavily over the last year.
+
+In the case of RE#TURGENCE, the threat actors were able to brute force their way into the victim server and leveraged the use of the xp_cmdshell procedure to execute commands on the host. Typically, this procedure is disabled by default and should not be enabled. Once the attackers were able to execute code through the xp_cmdshell procedure, they executed the commands on the server from the sqlservr.exe process.
+
+The command calls cmd.exe twice to execute a PowerShell encoded command which when decoded contains a command that downloads a file from the remote server and executes its contained code via a PowerShell invoke expression. 
+
+The PowerShell script found at MSjku is downloaded and executed in the same manner. This script contained a heavily obfuscated Cobalt Strike payload which is loaded into the current running process using in-memory reflection techniques (PowerShell in this case).
+
+Using Cobalt Strike as a main point of code execution, the attackers decided to go for a more hands-on approach. The AnyDesk binaries were downloaded from a mounted network share that the attackers set up and accessed using a command.
+
+Once mounted as the “F:\” drive, the attackers copied the AnyDesk installer to C:\ad.exe, along with the file ad.bat. The purpose of ad.bat is to simply install the AnyDesk connector service, add a new local user and add that user to the administrators group.
+
+The threat actors downloaded Mimikatz into the “c:\users\windows\desktop\x64\” directory using AnyDesk and started to know the network and domain a bit better the Advanced Port Scanner utility was downloaded via AnyDesk and saved named advoport.exe. And using the domain admin account, the threat actors were able to move to other machines from within the domain.
+
+At the end, the ransomware payload was downloaded using AnyDesk and was downloaded into c:\Users\windows\Documents\ as red25.exe. This payload is a self-extracting archive that extracts and runs red.exe which is the final ransomware payload.
+IOCs	SHA256:
+9f3ad476eda128752a690bd26d7f9a67a8a4855a187619e74422cc08121ad3d3
+a222ba1fd77a7915a61c8c7a0241222b4ad48dd1c243f3548caef23fe985e9c2
+1ed02979b3f312c4b2fd1b9cfdfb6bede03cd964bb52b3de017128fe00e10d3c
+f328c143c24afb2420964740789f409d2792413a5769a33741ed956fce5add3e
+1c7b82b084da8b57ffeef7bdca955c2aa4a209a96ec70e8d13e67283c10c12a5
+31feff32d23728b39ed813c1e7dc5fe6a87dcd4d10aa995446a8c5eb5da58615
+d0c1662ce239e4d288048c0e3324ec52962f6ddda77da0cb7af9c1d9c2f1e2eb
+e9c63a5b466c286ea252f1b0aa7820396d00be241fb554cf301c6cd7ba39c5e6
+Actions and Recommendations	 1.TRO Endpoint Team, kindly add the SHA256 hashes to the TIE as early as possible on a proactive basis.
+2.TRO EmailSec Team, kindly add the SHA256 hashes to the Mimecast as early as possible on a proactive basis.
+3.TRO SOC Team, kindly add the SHA256 hashes to the SIEM watchlist/blacklist as early as possible on a proactive basis.
+
+Thank you.
+
+Best Regards,
+Prabhu Teja Sabhavat | Associate Cybersecurity Analyst
+psabhavat@primehealthcare.com
+
+
+The information contained in this email may be confidential and/or legally privileged, including HIPAA Protected Health Information or information that is proprietary or trade secret. It has been sent for the sole use of the intended recipient(s). If you are not the intended recipient, you are hereby notified that any unauthorized review, use, disclosure, dissemination, distribution, or copying of this communication is strictly prohibited. If you received this communication in error, please inform the sender and destroy all copies of the message. The organization accepts no liability for any damage caused by transmittance of this email. Thank you.
+
